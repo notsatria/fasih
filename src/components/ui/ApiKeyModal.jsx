@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
+import { ExternalLink } from 'lucide-react';
+import { useTranslation } from '../../i18n/useTranslation.jsx';
+import Button from './Button.jsx';
 
-// Stub — will be built fully in Phase 2 (2.10)
 export default function ApiKeyModal() {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [key, setKey] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const stored = localStorage.getItem('fasih-gemini-key');
@@ -11,72 +15,80 @@ export default function ApiKeyModal() {
   }, []);
 
   function handleSave() {
-    if (key.trim()) {
-      localStorage.setItem('fasih-gemini-key', key.trim());
-      setOpen(false);
+    if (!key.trim()) {
+      setError('Please enter a valid API key.');
+      return;
     }
+    localStorage.setItem('fasih-gemini-key', key.trim());
+    setOpen(false);
+    setError('');
   }
 
   if (!open) return null;
 
   return (
-    <div style={{
-      position: 'fixed', inset: 0,
-      background: 'rgba(253,251,247,0.9)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      zIndex: 1000,
-    }}>
-      <div style={{
-        background: '#fff',
-        border: '3px solid #2d2d2d',
-        borderRadius: '15px 225px 15px 255px / 255px 15px 225px 15px',
-        boxShadow: '8px 8px 0px 0px #2d2d2d',
-        padding: '2rem',
-        maxWidth: '480px',
-        width: '90%',
-        fontFamily: 'Patrick Hand, cursive',
-      }}>
-        <h2 style={{fontFamily:'Kalam, cursive', fontSize:'1.6rem', marginBottom:'0.5rem'}}>
-          Enter your Gemini API Key
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(253,251,247,0.92)' }}
+    >
+      <div
+        className="relative bg-white border-[3px] border-pencil wobbly-md p-8 w-full max-w-md"
+        style={{ boxShadow: '8px 8px 0px 0px #2d2d2d' }}
+      >
+        {/* Tack decoration */}
+        <div className="absolute top-[-12px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-marker border-[2px] border-pencil z-10" />
+
+        {/* Icon */}
+        <div className="text-center mb-4">
+          <span className="text-5xl">🔑</span>
+        </div>
+
+        <h2 className="font-heading text-2xl text-pencil text-center mb-2">
+          {t('common.api_key_title')}
         </h2>
-        <p style={{color:'#666', marginBottom:'1rem', fontSize:'0.95rem'}}>
-          Fasih uses Google Gemini for AI feedback. Your key is stored locally and never sent to any server other than Google.
+        <p className="font-body text-pencil/70 text-center text-sm mb-6">
+          {t('common.api_key_desc')}
         </p>
+
         <input
           type="password"
           value={key}
-          onChange={e => setKey(e.target.value)}
-          placeholder="Paste your Gemini API key here..."
-          onKeyDown={e => e.key === 'Enter' && handleSave()}
-          style={{
-            width: '100%', padding: '10px 14px',
-            border: '2px solid #2d2d2d',
-            borderRadius: '225px 15px 255px 15px / 15px 255px 15px 225px',
-            fontFamily: 'Patrick Hand, cursive',
-            fontSize: '1rem',
-            background: '#fdfbf7',
-            outline: 'none',
-            marginBottom: '1rem',
-          }}
+          onChange={(e) => { setKey(e.target.value); setError(''); }}
+          onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+          placeholder={t('common.api_key_placeholder')}
+          className="
+            w-full px-4 py-3 mb-1
+            font-body text-base text-pencil
+            bg-paper border-[2px] border-pencil
+            outline-none
+            placeholder:text-pencil/40
+            focus:border-pen focus:ring-2 focus:ring-pen/20
+          "
+          style={{ borderRadius: '225px 15px 255px 15px / 15px 255px 15px 225px' }}
         />
-        <button
+
+        {error && (
+          <p className="font-body text-marker text-sm mb-3">{error}</p>
+        )}
+
+        <Button
+          variant="primary"
+          size="lg"
           onClick={handleSave}
-          style={{
-            width: '100%', padding: '12px',
-            background: '#2d2d2d', color: '#fff',
-            border: '3px solid #2d2d2d',
-            borderRadius: '255px 15px 225px 15px / 15px 225px 15px 255px',
-            fontFamily: 'Patrick Hand, cursive',
-            fontSize: '1.1rem',
-            cursor: 'pointer',
-            boxShadow: '4px 4px 0px 0px #ff4d4d',
-          }}
+          className="w-full mt-4"
         >
-          Save & Continue
-        </button>
-        <p style={{marginTop:'0.75rem', fontSize:'0.8rem', color:'#888', textAlign:'center'}}>
-          <a href="https://aistudio.google.com" target="_blank" rel="noreferrer" style={{color:'#2d5da1'}}>
-            Get a free API key at aistudio.google.com
+          {t('common.api_key_save')}
+        </Button>
+
+        <p className="font-body text-xs text-pencil/50 text-center mt-4">
+          <a
+            href="https://aistudio.google.com/app/apikey"
+            target="_blank"
+            rel="noreferrer"
+            className="text-pen hover:underline inline-flex items-center gap-1"
+          >
+            {t('common.api_key_link')}
+            <ExternalLink size={12} strokeWidth={2.5} />
           </a>
         </p>
       </div>
