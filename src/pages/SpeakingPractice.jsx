@@ -96,9 +96,9 @@ export default function SpeakingPractice() {
 
       {step === 'setup' && (
         <div className="mt-8 grid md:grid-cols-2 gap-8">
-          <Card decoration="tape" className="space-y-6">
+          <Card decoration="tape" className="space-y-6 h-full flex flex-col">
             <h2 className="font-heading text-2xl text-pencil">1. Choose a Category</h2>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 flex-grow">
               {CATEGORIES.map(c => (
                 <button
                   key={c}
@@ -114,14 +114,14 @@ export default function SpeakingPractice() {
             </div>
           </Card>
 
-          <Card decoration="tack" variant="postit" className="flex flex-col">
+          <Card decoration="tack" variant="postit" className="flex flex-col h-full">
             <h2 className="font-heading text-2xl text-pencil mb-4">2. Your Scenario</h2>
             {topic ? (
               <>
                 <p className="font-body text-xl text-pencil/90 leading-relaxed flex-grow">
                   "{topic.topic}"
                 </p>
-                <div className="flex items-center gap-3 mt-6">
+                <div className="flex items-center gap-3 mt-6 justify-end">
                   <Button variant="secondary" onClick={handleShuffle} className="flex-1">
                     <RefreshCw size={18} className="mr-2" />
                     Shuffle

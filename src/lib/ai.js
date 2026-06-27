@@ -1,11 +1,11 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI } from "@google/genai";
 
 let aiClient = null;
-const MODEL = 'gemini-2.0-flash'; // Can be changed to 'gemini-2.5-pro' if needed
+const MODEL = "gemini-2.5-pro"; // Can be changed to 'gemini-2.5-pro' if needed
 
 /**
  * Initializes the Gemini client with the given API key.
- * @param {string} apiKey 
+ * @param {string} apiKey
  */
 export function initGemini(apiKey) {
   if (!apiKey) throw new Error("API key is required");
@@ -17,7 +17,7 @@ export function initGemini(apiKey) {
  */
 function getClient() {
   if (aiClient) return aiClient;
-  const storedKey = localStorage.getItem('fasih-gemini-key');
+  const storedKey = localStorage.getItem("fasih-gemini-key");
   if (storedKey) {
     initGemini(storedKey);
     return aiClient;
@@ -41,9 +41,9 @@ async function callGemini(prompt, systemInstruction = SYSTEM_PROMPT) {
         temperature: 0.4,
         maxOutputTokens: 800,
         responseMimeType: "application/json",
-      }
+      },
     });
-    
+
     const text = response.text();
     try {
       return JSON.parse(text);
@@ -92,8 +92,8 @@ Provide your feedback in the following strict JSON schema:
  * Generates an interview question and decides if a follow-up is needed.
  */
 export async function generateInterviewQuestion(role, difficulty, previousQA = []) {
-  const historyText = previousQA.map(qa => `Q: ${qa.question}\nA: ${qa.answer}`).join("\n\n");
-  
+  const historyText = previousQA.map((qa) => `Q: ${qa.question}\nA: ${qa.answer}`).join("\n\n");
+
   const prompt = `
 You are conducting a mock interview for a ${role} role. 
 The difficulty level is: ${difficulty} (e.g. Screening Call, Behavioral, Culture Fit).
@@ -137,7 +137,7 @@ Respond in this strict JSON schema:
  * Generates a session summary for interview practice.
  */
 export async function generateSessionSummary(allQA, role, difficulty) {
-  const qas = allQA.map((qa, i) => `Question ${i+1}: ${qa.question}\nAnswer ${i+1}: ${qa.answer}\nSTAR: S:${qa.starResult.situation}, T:${qa.starResult.task}, A:${qa.starResult.action}, R:${qa.starResult.result}`).join('\n\n');
+  const qas = allQA.map((qa, i) => `Question ${i + 1}: ${qa.question}\nAnswer ${i + 1}: ${qa.answer}\nSTAR: S:${qa.starResult.situation}, T:${qa.starResult.task}, A:${qa.starResult.action}, R:${qa.starResult.result}`).join("\n\n");
 
   const prompt = `
 Evaluate this entire mock interview session for a ${role} (${difficulty}).
@@ -197,7 +197,7 @@ export async function evaluateDailyScenario(scenario, vocabHints, transcript) {
 Evaluate this daily office scenario response.
 
 Scenario: "${scenario}"
-Recommended Vocabulary: ${vocabHints.join(', ')}
+Recommended Vocabulary: ${vocabHints.join(", ")}
 User's Response: "${transcript}"
 
 Determine if they used the recommended vocabulary effectively and evaluate their speaking quality.

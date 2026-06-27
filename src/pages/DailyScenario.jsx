@@ -130,7 +130,7 @@ export default function DailyScenario() {
 
       {step === 'feedback' && feedback && (
         <div className="mt-8 grid md:grid-cols-3 gap-8 animate-fade-in">
-          <Card decoration="tack" className="md:col-span-1 flex flex-col items-center justify-center py-8">
+          <Card decoration="tack" className="md:col-span-1 flex flex-col items-center justify-center py-8 h-full">
             <ScoreCircle value={feedback.overall_score} label="Daily Score" size="lg" />
             <div className="mt-6 w-full space-y-4">
               <ProgressBar value={feedback.speaking_quality} label="Speaking Quality" color="pen" />

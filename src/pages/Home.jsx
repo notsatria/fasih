@@ -45,32 +45,32 @@ export default function Home() {
 
       {/* Feature Cards Grid */}
       <div className="grid md:grid-cols-3 gap-6 mb-16">
-        <Card variant="default" hover={true} onClick={() => navigate('/speaking')} className="cursor-pointer">
-          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4">
+        <Card variant="default" hover={true} onClick={() => navigate('/speaking')} className="cursor-pointer h-full flex flex-col">
+          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4 shrink-0">
             <MessageSquare size={24} className="text-pencil" />
           </div>
-          <h3 className="font-heading text-2xl text-pencil mb-2">Speaking Practice</h3>
-          <p className="font-body text-pencil/70">
+          <h3 className="font-heading text-2xl text-pencil mb-2 shrink-0">Speaking Practice</h3>
+          <p className="font-body text-pencil/70 flex-grow">
             Simulate 25+ real office scenarios. Get instant AI feedback on clarity, tone, and grammar.
           </p>
         </Card>
 
-        <Card variant="postit" decoration="tack" hover={true} onClick={() => navigate('/interview')} className="cursor-pointer">
-          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4">
+        <Card variant="postit" decoration="tack" hover={true} onClick={() => navigate('/interview')} className="cursor-pointer h-full flex flex-col">
+          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4 shrink-0">
             <Briefcase size={24} className="text-pencil" />
           </div>
-          <h3 className="font-heading text-2xl text-pencil mb-2">Interview Prep</h3>
-          <p className="font-body text-pencil/70">
+          <h3 className="font-heading text-2xl text-pencil mb-2 shrink-0">Interview Prep</h3>
+          <p className="font-body text-pencil/70 flex-grow">
             Dynamic mock interviews. Master the STAR method with real-time tracking and suggestions.
           </p>
         </Card>
 
-        <Card variant="default" hover={true} onClick={() => navigate('/vocabulary')} className="cursor-pointer">
-          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4">
+        <Card variant="default" hover={true} onClick={() => navigate('/vocabulary')} className="cursor-pointer h-full flex flex-col">
+          <div className="w-12 h-12 bg-white border-2 border-pencil rounded-full flex items-center justify-center mb-4 shrink-0">
             <BookOpen size={24} className="text-pencil" />
           </div>
-          <h3 className="font-heading text-2xl text-pencil mb-2">Vocabulary</h3>
-          <p className="font-body text-pencil/70">
+          <h3 className="font-heading text-2xl text-pencil mb-2 shrink-0">Vocabulary</h3>
+          <p className="font-body text-pencil/70 flex-grow">
             Learn 30+ essential workplace idioms. Practice using them in spoken sentences.
           </p>
         </Card>
